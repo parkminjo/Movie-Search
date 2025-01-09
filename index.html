@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="./src/fetch.js"></script>
+    <title>Movie</title>
+  </head>
+  <body>
+    <header>
+      <ul>
+        <li class="website-title">
+          <label for="search">영화 검색</label>
+        </li>
+        <li class="movie-search">
+          <form action="#" method="get">
+            <input
+              class="search-box"
+              id="search"
+              type="search"
+              placeholder="영화를 검색하세요."
+            />
+          </form>
+        </li>
+        <li class="book-mark">
+          <input class="book-mark-button" type="button" value="북마크" />
+        </li>
+      </ul>
+    </header>
+
+    <main>
+      <div class="movie-list"></div>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>
