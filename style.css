@@ -3,50 +3,55 @@
   padding: 0;
 }
 
+.container {
+  width: 100%;
+}
+
 header {
-  height: 120px;
+  width: 100%;
+  height: 150px;
   background-color: black;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-}
-
-header ul li {
-  list-style: none;
-  text-align: center;
-  padding: 6px;
+  padding: 1rem;
 }
 
 header .website-title {
-  font-size: 28px;
+  font-size: 2rem;
+  margin: 0.5rem;
 }
 
-header ul .search-box {
-  width: 50rem;
-  height: 40px;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 5px;
+header .movie-search {
+  margin: 0.5rem;
+}
+
+header .movie-search-input {
+  width: 800px;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 2rem;
   border: none;
+  padding-left: 0.8rem;
 }
 
-header ul .book-mark-button {
+@media (max-width: 786px) {
+  header .movie-search-input {
+    width: 500px;
+  }
+}
+
+header .book-mark-button {
+  font-size: 1rem;
   color: white;
   background-color: transparent;
   border: none;
-  font-size: 16px;
 }
 
-header header h1 {
-  font-size: 24px;
-}
-
-header a {
-  text-decoration: none;
-  color: white;
+main {
+  width: 100%;
 }
 
 main .movie-list {
@@ -79,4 +84,8 @@ main .movie-list .movie-card .movie-image > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+footer {
+  width: 100%;
 }
