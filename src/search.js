@@ -23,7 +23,6 @@ fetch(url, options)
   .catch((err) => console.error(err));
 
 // 사용자가 엔터키를 눌렀을 때 입력한 값 가져오는 함수
-
 const bringUserInput = function (event) {
   if (event.key === "Enter") {
     const userInput = $searchInput.value;
