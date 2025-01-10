@@ -1,26 +1,8 @@
 const $searchInput = document.querySelector(".movie-search-input");
 const $movieList = document.querySelector(".movie-list");
 
-// TMDB에서 인기 영화 API 가져오기
-const url = "https://api.themoviedb.org/3/movie/popular?language=ko-US&page=1";
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGI0MTIwZGU5NTUwOWEzYTJhMTY4MmQzYzdhYmUxMyIsIm5iZiI6MTczNjI5NTgzOS4wNSwic3ViIjoiNjc3ZGM1OWY4OWZjNWQ5NDQyNGU1NmUxIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.KNDcuNLSXmO_bZERMNVDo-_I5r9KBaKkc-1kZCvdFU8",
-  },
-};
-
-// 인기 영화 데이터가 담긴 배열 만들기
-let movieList = [];
-
-fetch(url, options)
-  .then((res) => res.json())
-  .then((data) => {
-    movieList = data.results;
-  })
-  .catch((err) => console.error(err));
+import { fetchMovies } from "./all.js";
+const movieList = await fetchMovies();
 
 // 사용자가 엔터키를 눌렀을 때 입력한 값 가져오는 함수
 const bringUserInput = function (event) {

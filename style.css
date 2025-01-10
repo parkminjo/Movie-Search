@@ -100,13 +100,17 @@ main .movie-list {
 }
 
 main .movie-list .movie-card {
-  background-color: white;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 0px 10px 1px #b7b7b7;
 }
 
+main .movie-list .movie-card:hover {
+  opacity: 50%;
+}
+
 main .movie-list .movie-card .movie-card-body {
+  background-color: white;
   padding: 16px;
 }
 
