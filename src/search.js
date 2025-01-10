@@ -2,7 +2,7 @@ const $searchInput = document.querySelector(".movie-search-input");
 const $movieList = document.querySelector(".movie-list");
 
 // TMDB에서 인기 영화 API 가져오기
-const url = "https://api.themoviedb.org/3/movie/popular?language=ko&page=1";
+const url = "https://api.themoviedb.org/3/movie/popular?language=ko-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -25,7 +25,7 @@ fetch(url, options)
 // 사용자가 엔터키를 눌렀을 때 입력한 값 가져오는 함수
 const bringUserInput = function (event) {
   if (event.key === "Enter") {
-    const userInput = $searchInput.value;
+    const userInput = $searchInput.value; // 사용자가 입력한 값
     $searchInput.value = ""; // 사용자가 입력한 값 초기화하기
 
     // 사용자가 입력한 값과 영화 제목이 담긴 배열 비교하기
@@ -38,8 +38,11 @@ const bringUserInput = function (event) {
     });
 
     if (searchedMovieList.length === 0) {
-      alert("일치하는 키워드가 없습니다");
+      alert("입력하신 키워드와 일치하는 영화가 없습니다");
     }
+
+    // 기존에 있는 영화 카드 삭제하기
+    $movieList.innerHTML = "";
 
     // 영화 제목이 일치한 영화 카드 템플릿 만들기
     searchedMovieList.forEach((movieData) => {
@@ -62,8 +65,7 @@ const bringUserInput = function (event) {
         </div>
         
       `;
-      // div 태그-movieList에 템플릿 삭제하고 추가하기
-      $movieList.innerHTML = "";
+      // div 태그-movieList에 추가하기
       $movieList.innerHTML += cardTemplate;
     });
   }
