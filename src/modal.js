@@ -15,7 +15,25 @@ const showModal = function (event) {
   $modal.style.display = "block"; // 모달창 보이게 하기
   document.body.style.overflow = "hidden"; // 외부 화면 스크롤 off
   const movieCard = event.target.closest(".movie-card");
+  makeDetailInfo(movieCard);
+};
 
+//
+// 모달창 페이지 끄기
+const closeModal = function (event) {
+  $modal.style.display = "none";
+  document.body.style.overflow = "unset"; // 외부 화면 스크롤 on
+};
+
+//
+// 모달창 켜기
+$movieList.addEventListener("click", showModal);
+// 모달창 끄기
+$closeButton.addEventListener("click", closeModal);
+
+//
+// 클릭한 영화 상세 정보 넣기
+const makeDetailInfo = function (movieCard) {
   // 사용자가 클릭한 영화 정보 가져오기
   const clickedMovie = movieList.find((movie) => {
     return movie.id === Number(movieCard.id);
@@ -52,17 +70,3 @@ const showModal = function (event) {
 
   if (!movieCard) return;
 };
-
-// 모달창 페이지 끄기
-const closeModal = function (event) {
-  $modal.style.display = "none";
-  document.body.style.overflow = "unset"; // 외부 화면 스크롤 on
-};
-
-//
-// 모달창 켜기
-$movieList.addEventListener("click", showModal);
-// 모달창 끄기
-$closeButton.addEventListener("click", closeModal);
-
-// 카드 상세 페이지 구현하기
