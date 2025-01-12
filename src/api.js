@@ -11,9 +11,9 @@ const options = {
 
 // 인기 영화 데이터가 담긴 배열 만들기
 async function fetchMovies() {
-  let movieList1 = await fetch(url, options);
+  const movieList = await fetch(url, options);
   // .then((res) => res.json())
-  let data = await movieList1.json();
+  const data = await movieList.json();
   //.then((data) => {
   //   movieList = data.results;
   // })

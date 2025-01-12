@@ -1,17 +1,20 @@
-import { fetchMovies } from "./all.js";
+// 인기 영화 배열 데이터
+import { fetchMovies } from "./api.js";
 const movieList = await fetchMovies();
 
+// HTML 태그
 const $movieList = document.querySelector(".movie-list");
 
+//
 // 영화 카드 만드는 템플릿 생성하기
 movieList.forEach((movieData) => {
-  let movieTitle = movieData.title;
-  let movieRating = movieData.vote_average;
-  let movieImage = "https://image.tmdb.org/t/p/w500" + movieData.poster_path;
-  let movieId = movieData.id;
+  const movieTitle = movieData.title;
+  const movieRating = movieData.vote_average;
+  const movieImage = "https://image.tmdb.org/t/p/w500" + movieData.poster_path;
+  const movieId = movieData.id;
 
   // 영화 카드 템플릿
-  let cardTemplate = `
+  const cardTemplate = `
     <div class="movie-card" id=${movieId}>
       <div class="movie-image">
         <img src=${movieImage} alt="영화이미지" />

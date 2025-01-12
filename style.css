@@ -8,8 +8,9 @@
   height: 100%;
 }
 
+/* header 디자인 - 검색창 */
 header {
-  height: 150px;
+  height: 160px;
   background-color: #1a1a1d;
   color: white;
   display: flex;
@@ -54,15 +55,17 @@ header .book-mark-button {
   color: white;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
+/* 영화 카드 리스트 디자인 */
 main {
-  width: 100%;
+  padding: 2rem 4rem 2rem 4rem;
 }
 
 main .movie-list {
-  margin: 1rem 4rem auto 4rem;
-  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: minmax(300px, auto);
@@ -128,6 +131,102 @@ main .movie-list .movie-card .movie-image > img {
   object-fit: cover;
 }
 
-footer {
+/* 모달창 디자인 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal .modal-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.modal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.modal .close-button > button {
+  background-color: transparent;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.modal .close-button > button:hover {
+  color: #b7b7b7;
+}
+
+.modal .close-button > button:after {
+  content: "\00d7";
+}
+
+.modal .movie-info-all {
+  position: relative;
+  top: 20px;
+}
+
+.modal .movie-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding-bottom: 1.5rem;
+}
+
+.modal .movie-info {
+  position: relative;
+}
+
+.modal .movie-title {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+
+.modal .movie-content {
+  font-size: 20px;
+  padding-bottom: 2rem;
+  line-height: 170%;
+}
+
+.modal .movie-date {
+  font-size: 18px;
+  padding-bottom: 1rem;
+}
+
+.modal .movie-rating {
+  font-size: 18px;
+  padding-bottom: 2rem;
+}
+
+.modal .movie-add-button > input {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.modal .movie-add-button:hover {
+  opacity: 70%;
 }

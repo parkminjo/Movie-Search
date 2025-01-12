@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="./src/card.js"></script>
     <script type="module" src="./src/search.js"></script>
-    <script type="module" src="./src/detail.js"></script>
+    <script type="module" src="./src/modal.js"></script>
     <title>Movie</title>
   </head>
   <body>
@@ -15,6 +15,7 @@
         <div class="website-title">
           <label for="search">영화 검색</label>
         </div>
+
         <div class="movie-search">
           <input
             class="movie-search-input"
@@ -23,6 +24,7 @@
             placeholder="영화를 검색하세요"
           />
         </div>
+
         <div class="book-mark">
           <input type="button" class="book-mark-button" value="북마크" />
         </div>
@@ -31,6 +33,16 @@
       <main>
         <div class="movie-list"></div>
       </main>
+
+      <div class="modal">
+        <div class="modal-body">
+          <div class="close-button">
+            <button></button>
+          </div>
+
+          <div class="movie-info-all"></div>
+        </div>
+      </div>
 
       <footer></footer>
     </div>
