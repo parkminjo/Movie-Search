@@ -23,9 +23,8 @@ movieList.forEach((movieData) => {
         <h2 class="movie-title">${movieTitle}</h2>
         <p class="movie-rating">평점: ${movieRating}</p>
       </div>
-    </div>
-    
-  `;
+    </div>  
+    `;
   // div 태그-movieList에 템플릿 추가하기
   $movieList.innerHTML += cardTemplate;
 });

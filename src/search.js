@@ -5,6 +5,7 @@ const movieList = await fetchMovies();
 // HTML 태그
 const $searchInput = document.querySelector(".movie-search-input");
 const $movieList = document.querySelector(".movie-list");
+const $addBookMark = document.querySelector(".movie-add-button");
 
 //
 // 사용자가 입력한 값을 가져오는 함수
