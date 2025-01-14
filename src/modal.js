@@ -8,19 +8,21 @@ const $movieList = document.querySelector(".movie-list");
 const $closeButton = document.querySelector(".close-button");
 const $detailMovieInfo = document.querySelector(".movie-info-all");
 
-const $addBookMark = document.querySelector(".movie-add");
+const $bookMarkButton = document.querySelector(".movie-add-delete");
 const $bookMark = document.querySelector(".book-mark-button");
 
 //
 // 모달창 페이지 켜기
 let movieCard;
+
 const openModal = async function (event) {
   $modal.style.display = "block"; // 모달창 보이게 하기
   document.body.style.overflow = "hidden"; // 외부 화면 고정시키기
+
   movieCard = event.target.closest(".movie-card");
   if (!movieCard) return;
 
-  const detailMovieInfo = await findDetailInfo(movieCard);
+  const detailMovieInfo = await findDetailInfo(movieCard); // 영화 상세 정보 가져오기
 
   // 모달창에 영화 상세 정보 채우기
   const movieImage =
@@ -48,13 +50,12 @@ const openModal = async function (event) {
     </div>
     `;
 
-  const addButton = `
-      <input class="movie-add-button" type="button" value="북마크 추가" />
-    `;
+  $detailMovieInfo.innerHTML = detailTemplate; // 상세 정보 넣기
 
-  $detailMovieInfo.innerHTML = detailTemplate;
-  $addBookMark.innerHTML = addButton;
+  changeBookMarkButton(detailMovieInfo.id);
 };
+
+$movieList.addEventListener("click", openModal);
 
 //
 // 모달창 페이지 끄기
@@ -63,10 +64,6 @@ const closeModal = function (event) {
   document.body.style.overflow = "unset"; // 외부 화면 움직이게 하기
 };
 
-//
-// 모달창 켜기
-$movieList.addEventListener("click", openModal);
-// 모달창 끄기
 $closeButton.addEventListener("click", closeModal);
 
 //
@@ -79,8 +76,83 @@ const findDetailInfo = async function (movieCard) {
 };
 
 //
+// 북마크 페이지 보여주기
+const showBookMark = function (event) {
+  $movieList.innerHTML = "";
+
+  const strMovieArr = window.localStorage.getItem("movie");
+  const markedMovie = JSON.parse(strMovieArr);
+
+  markedMovie.forEach((movie) => {
+    const movieTitle = movie.title;
+    const movieId = movie.id;
+    const movieImage = movie.image;
+    const movieRating = movie.rating;
+
+    // 영화 카드 템플릿
+    const cardTemplate = `
+    <div class="movie-card" id=${movieId}>
+      <div class="movie-image">
+        <img src=${movieImage} alt="영화이미지" />
+      </div>
+      <div class="movie-card-body">
+        <h2 class="movie-title">${movieTitle}</h2>
+        <p class="movie-rating">평점: ${movieRating}</p>
+      </div>
+    </div>
+    `;
+
+    // div 태그-movieList에 템플릿 추가하기
+    $movieList.innerHTML += cardTemplate;
+  });
+};
+
+$bookMark.addEventListener("click", showBookMark);
+
+//
+// Local Storage 데이터 확인 여부
+const checkLocalStorage = function (movieId) {
+  if (window.localStorage.length >= 1) {
+    const strMovieArr = window.localStorage.getItem("movie");
+    const markedMovie = JSON.parse(strMovieArr);
+    return markedMovie.some((movie) => movie.id === movieId);
+  } else {
+    false;
+  }
+};
+
+//
+// 북마크 버튼 바꾸는 함수
+const changeBookMarkButton = function (movieId) {
+  const addButton = `
+      <input class="movie-add-button" type="button" value="북마크 추가" />
+  `;
+  const minusButton = `
+    <input class="movie-minus-button" type="button" value="북마크 삭제" />
+  `;
+
+  if (checkLocalStorage(movieId)) {
+    $bookMarkButton.innerHTML = minusButton;
+  } else {
+    $bookMarkButton.innerHTML = addButton;
+  }
+};
+
+// 북마크 추가/삭제 기능
+$bookMarkButton.addEventListener("click", (event) => {
+  const whatButton = event.target.classList.value;
+
+  if (whatButton === "movie-minus-button") {
+    deleteBookMark(event);
+  } else {
+    addBookMark(event);
+  }
+});
+
+//
 // 북마크 추가 함수
 const movieArr = [];
+
 const addBookMark = async function (event) {
   const movieInfo = await findDetailInfo(movieCard);
 
@@ -106,36 +178,19 @@ const addBookMark = async function (event) {
   alert("북마크에 추가했습니다");
 };
 
-$addBookMark.addEventListener("click", addBookMark);
-
 //
-// 북마크 페이지 보여주는 함수
-const showBookMark = function (event) {
-  $movieList.innerHTML = "";
-  const strMovieArr = window.localStorage.getItem("movie");
-  console.log(strMovieArr);
+// 북마크 삭제 함수
+const deleteBookMark = async function (event) {
+  const detailMovieInfo = await findDetailInfo(movieCard);
+
+  let strMovieArr = window.localStorage.getItem("movie");
   const markedMovie = JSON.parse(strMovieArr);
-  markedMovie.forEach((movie) => {
-    const movieTitle = movie.title;
-    const movieId = movie.id;
-    const movieImage = movie.image;
-    const movieRating = movie.rating;
 
-    // 영화 카드 템플릿
-    const cardTemplate = `
-    <div class="movie-card" id=${movieId}>
-      <div class="movie-image">
-        <img src=${movieImage} alt="영화이미지" />
-      </div>
-      <div class="movie-card-body">
-        <h2 class="movie-title">${movieTitle}</h2>
-        <p class="movie-rating">평점: ${movieRating}</p>
-      </div>
-    </div>
-    `;
-    // div 태그-movieList에 템플릿 추가하기
-    $movieList.innerHTML += cardTemplate;
+  const newMarkedMovie = markedMovie.filter((movie) => {
+    return movie.id !== detailMovieInfo.id;
   });
-};
 
-$bookMark.addEventListener("click", showBookMark);
+  strMovieArr = JSON.stringify(newMarkedMovie);
+  window.localStorage.setItem("movie", strMovieArr);
+  alert("북마크에서 삭제했습니다");
+};

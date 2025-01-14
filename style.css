@@ -22,7 +22,7 @@ header {
 
 header .website-title {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 header .website-title a {
   color: white;
@@ -118,7 +118,8 @@ main .movie-list .movie-card {
 }
 
 main .movie-list .movie-card:hover {
-  opacity: 50%;
+  opacity: 60%;
+  box-shadow: 0px 0px 10px 2px #4e4e4e;
 }
 
 main .movie-list .movie-card .movie-card-body {
@@ -230,11 +231,11 @@ main .movie-list .movie-card .movie-image > img {
   color: #343a40;
 }
 
-.modal .movie-add {
+.modal .movie-add-delete {
   margin-bottom: 1.5rem;
 }
 
-.modal .movie-add > input {
+.modal .movie-add-delete > input {
   width: 100%;
   height: 50px;
   border-radius: 10px;
@@ -246,6 +247,6 @@ main .movie-list .movie-card .movie-image > img {
   text-align: center;
 }
 
-.modal .movie-add:hover {
+.modal .movie-add-delete:hover {
   opacity: 70%;
 }
