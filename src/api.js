@@ -10,10 +10,14 @@ const options = {
 };
 
 // 인기 영화 데이터가 담긴 배열 만들기
-async function fetchMovies() {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  return data.results;
-}
+const fetchMovies = async function () {
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.log(err);
+  }
+};
 
 export { fetchMovies };
