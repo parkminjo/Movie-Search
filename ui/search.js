@@ -12,6 +12,7 @@ import { makeMovieCard } from "./movie-card.js";
 const $searchBox = document.querySelector(".movie-search-input");
 const $banner = document.querySelector(".banner");
 const $movieList = document.querySelector(".movie-list");
+const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 // 전역 변수 - 특수 문자
 const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`ㅇㄴ!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
@@ -27,7 +28,8 @@ const debouncing = function (func, timeOut = 300) {
 //
 // 실시간 검색 기능
 const realTimeSearch = function (e) {
-  $banner.innerHTML = "";
+  $banner.style.display = "none";
+  $movieListTitle.style.display = "none";
 
   // 사용자가 입력한 값
   const inputValue = $searchBox.value

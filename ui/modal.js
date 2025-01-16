@@ -18,10 +18,12 @@ const openModal = async function (e) {
   document.body.style.overflow = "hidden"; // 모달창 외부 화면 고정시키기
 
   const movieCard = e.target.closest(".movie-card");
+
   // 예외 상황 처리
   if (!movieCard) {
     $modal.style.display = "none";
     document.body.style.overflow = "unset";
+    return;
   }
 
   // 영화 상세 정보 가져오기

@@ -6,12 +6,14 @@ const $movieList = document.querySelector(".movie-list");
 const $bookMarkButton = document.querySelector(".book-mark-button");
 const $addDeleteBookmarkButton = document.querySelector(".movie-add-delete");
 const $banner = document.querySelector(".banner");
+const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 //
 // 사용자가 북마크한 영화를 보여주는 함수
 const showBookMark = function () {
   $movieList.innerHTML = "";
-  $banner.innerHTML = "";
+  $banner.style.display = "none";
+  $movieListTitle.style.display = "none";
 
   // local storage에 있는 영화 id, 상세 정보 가져와서 새로운 배열에 저장하기
   let markedMovies = [];

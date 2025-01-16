@@ -8,12 +8,15 @@ import { makeMovieCard } from "./movie-card.js";
 const $movieList = document.querySelector(".movie-list");
 const $popularButton = document.querySelector(".popular");
 const $banner = document.querySelector(".banner");
+const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 //
 // 인기 상영작을 보여주는 함수
 const showNowPlaying = function () {
   $movieList.innerHTML = "";
-  $banner.innerHTML = "";
+  $banner.style.display = "none";
+  $movieListTitle.style.display = "none";
+
   makeMovieCard(popularMovieList);
 };
 

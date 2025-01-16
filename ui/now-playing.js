@@ -8,12 +8,15 @@ import { makeMovieCard } from "./movie-card.js";
 const $movieList = document.querySelector(".movie-list");
 const $nowPlayingButton = document.querySelector(".now-playing");
 const $banner = document.querySelector(".banner");
+const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 //
 // 현재 상영작을 보여주는 함수
 const showNowPlaying = function () {
   $movieList.innerHTML = "";
-  $banner.innerHTML = "";
+  $banner.style.display = "none";
+  $movieListTitle.style.display = "none";
+
   makeMovieCard(nowPlayingMovieList);
 };
 
