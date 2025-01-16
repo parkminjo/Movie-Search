@@ -1,3 +1,4 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
 
 * {
@@ -7,6 +8,7 @@
 
 body {
   background-color: #17171b;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
 }
 
 .container {
@@ -38,6 +40,7 @@ header .menu-list {
 }
 
 header .menu-item {
+  color: #d1d1d1;
   list-style: none;
   font-size: 1rem;
   cursor: pointer;
@@ -49,54 +52,56 @@ header .web-title {
   padding-left: 0;
 }
 
-header .menu-item a {
-  color: #f1f3f5;
+header .menu-item > a {
+  color: #fcc737;
   font-size: 1.5rem;
   text-decoration: none;
 }
 
-header .menu-item:hover {
-  opacity: 80%;
+header .menu-item > a:hover {
+  color: #f8f9fa;
 }
 
-header .movie-search-input {
-  width: 500px;
-  height: 40px;
-  font-size: 1rem;
-  border-radius: 2rem;
-  border: none;
-  padding-left: 1.5rem;
-  background-color: #f1f3f5;
+header .now-playing:hover,
+.popular:hover,
+.book-mark-button:hover {
+  color: #f8f9fa;
 }
-
-/* @media (max-width: 1000px) {
-  header .movie-search-input {
-    width: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  header .movie-search-input {
-    width: 500px;
-  }
-}
-
-@media (max-width: 480px) {
-  header .movie-search-input {
-    width: 300px;
-  }
-} */
 
 header .book-mark-button {
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 1rem;
-  color: #ffd65a;
+  color: #d1d1d1;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
 
-header .book-mark-button:hover {
-  opacity: 80%;
+header .movie-search-input {
+  color: #f8f9fa;
+  width: 400px;
+  height: 40px;
+  font-size: 1rem;
+  border-radius: 2rem;
+  padding-left: 1.5rem;
+  border: 3px solid rgb(252, 199, 55, 0.8);
+  background-color: transparent;
+}
+
+header .movie-search-input:hover {
+  border: 3px solid rgb(252, 199, 55);
+}
+
+@media (max-width: 1000px) {
+  header .movie-search-input {
+    width: 300px;
+  }
+}
+
+@media (max-width: 876px) {
+  header .movie-search-input {
+    width: 200px;
+  }
 }
 
 /* 배너 디자인 */
@@ -105,11 +110,18 @@ main .banner {
   margin-bottom: 4rem;
 }
 
-main .banner > img {
+main .banner > video {
   width: 100%;
-  height: 100%;
+  height: 520px;
   border-radius: 1rem;
   object-fit: cover;
+}
+
+/* 영화 카드 제목 */
+main .movie-list-title {
+  color: #f8f9fa;
+  font-size: 12px;
+  margin-bottom: 1.5rem;
 }
 
 /* 영화 카드 리스트 디자인 */
@@ -160,14 +172,15 @@ main .movie-list {
 }
 
 main .movie-list .movie-card {
-  border-radius: 10px;
   overflow: hidden;
   color: #17171b;
 }
 
 main .movie-list .movie-card:hover {
-  opacity: 60%;
-  box-shadow: 0px 0px 10px 2px #4e4e4e;
+  opacity: 80%;
+  transform: translateY(-1rem);
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
 }
 
 main .movie-list .movie-card .movie-image {
@@ -177,12 +190,13 @@ main .movie-list .movie-card .movie-image {
 main .movie-list .movie-card .movie-image > img {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
   object-fit: cover;
 }
 
 main .movie-list .movie-card .movie-card-body {
   height: 96px;
-  color: #f1f3f5;
+  color: #f8f9fa;
   text-align: center;
   padding: 1rem;
 }
@@ -214,7 +228,7 @@ main .movie-list .movie-card .movie-card-body > p {
   width: 600px;
   height: 600px;
   transform: translate(-50%, -50%);
-  background-color: #f1f3f5;
+  background-color: #f8f9fa;
   border-radius: 10px;
   padding: 1.5rem;
   max-height: calc(100vh - 200px);
@@ -294,7 +308,7 @@ main .movie-list .movie-card .movie-card-body > p {
   height: 50px;
   border-radius: 10px;
   background-color: #17171b;
-  color: #f1f3f5;
+  color: #f8f9fa;
   border: none;
   cursor: pointer;
   font-size: 1rem;

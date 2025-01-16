@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script type="module" src="./src/movie-card.js"></script>
-    <script type="module" src="./src/search.js"></script>
-    <script type="module" src="./src/modal.js"></script>
-    <script type="module" src="./src/bookmark.js"></script>
+    <script type="module" src="./ui/bookmark.js"></script>
+    <script type="module" src="./ui/modal.js"></script>
+    <script type="module" src="./ui/movie-card.js"></script>
+    <script type="module" src="./ui/now-playing.js"></script>
+    <script type="module" src="./ui/popular.js"></script>
+    <script type="module" src="./ui/search.js"></script>
 
     <title>Movie</title>
   </head>
@@ -20,8 +22,8 @@
               <li class="menu-item web-title">
                 <a href="index.html">POP CINEMA</a>
               </li>
-              <li class="menu-item">현재 상영</li>
-              <li class="menu-item">인기 영화</li>
+              <li class="menu-item now-playing">현재 상영</li>
+              <li class="menu-item popular">인기 영화</li>
               <li class="menu-item book-mark">
                 <input type="button" class="book-mark-button" value="북마크" />
               </li>
@@ -41,7 +43,15 @@
 
       <main>
         <div class="banner">
-          <img src="https://ifh.cc/g/KFW4ft.jpg" alt="배너 이미지" />
+          <video
+            src="./video/짱구 공룡일기.mp4"
+            muted
+            autoplay
+            loop
+          ></video>
+        </div>
+        <div class="movie-list-title">
+          <h1 class="movie-list-title-text">현재 상영작</h1>
         </div>
         <div class="movie-list"></div>
       </main>
