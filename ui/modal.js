@@ -1,5 +1,5 @@
-// 인기/현재 상영작 데이터 배열
-import { allMovieList } from "../api/combine-api.js";
+// 영화 검색을 위한 API
+import { fetchMovieId } from "../api/movie-id-api.js";
 
 // HTML 태그
 const $modal = document.querySelector(".modal");
@@ -27,9 +27,7 @@ const openModal = async function (e) {
   }
 
   // 영화 상세 정보 가져오기
-  const movieDetails = allMovieList.find((movie) => {
-    return movie.id === Number(movieCard.id);
-  });
+  const movieDetails = await fetchMovieId(Number(movieCard.id));
 
   $modalBody.setAttribute("id", `${movieDetails.id}`); // 북마크.js에서 사용자가 클릭한 영화의 id를 찾기 위한 방편
 

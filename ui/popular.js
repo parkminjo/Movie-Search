@@ -21,3 +21,6 @@ const showNowPlaying = function () {
 };
 
 $popularButton.addEventListener("click", showNowPlaying);
+
+// HTML 태그
+const $searchBox = document.querySelector(".movie-search-input");

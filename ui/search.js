@@ -1,9 +1,5 @@
-// 영화 데이터 배열
-import { allMovieList } from "../api/combine-api.js";
-
-// // 검색할 수 있는 모든 영화 배열
-// import { fetchSearchMovies } from "./api.js";
-// const allMovieList = await fetchSearchMovies();
+// 영화 검색을 위한 API
+import { fetchAllMovies } from "../api/search-api.js";
 
 // 영화 카드 템플릿 생성 함수
 import { makeMovieCard } from "./movie-card.js";
@@ -40,7 +36,7 @@ const realTimeSearch = function (e) {
 
   // 디바운싱
   if (inputValue.length > 0) {
-    debouncing(filterInput(inputValue));
+    debouncing(() => filterInput(inputValue));
   }
 };
 
@@ -48,7 +44,9 @@ $searchBox.addEventListener("input", realTimeSearch);
 
 //
 // 사용자가 입력한 값을 필터링하는 함수
-const filterInput = function (inputValue) {
+const filterInput = async function (inputValue) {
+  const allMovieList = await fetchAllMovies(inputValue);
+
   const searchedMovieList = allMovieList.filter((movie) => {
     // 영화 제목에 있는 특수문자와 공백 제거하기
     const movieTitle = movie.title

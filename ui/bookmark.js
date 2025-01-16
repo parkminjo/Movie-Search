@@ -1,5 +1,5 @@
-// 인기/현재 상영작 데이터 배열
-import { allMovieList } from "../api/combine-api.js";
+// 영화 검색을 위한 API
+import { fetchMovieId } from "../api/movie-id-api.js";
 
 // HTML 태그
 const $movieList = document.querySelector(".movie-list");
@@ -60,9 +60,7 @@ const addBookMark = async function (e) {
   const clickedMovie = e.target.closest(".modal-body");
 
   // 영화 상세 정보 가져오기
-  const movieDetails = allMovieList.find((movie) => {
-    return movie.id === Number(clickedMovie.id);
-  });
+  const movieDetails = await fetchMovieId(Number(clickedMovie.id));
 
   // 영화 상세 정보 객체 형태로 할당하기
   const MovieDataObj = {
