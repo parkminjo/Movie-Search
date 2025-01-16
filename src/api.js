@@ -13,10 +13,13 @@ const options = {
 const fetchMovies = async function () {
   try {
     const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`${response.status} 에러가 발생했습니다`);
+    }
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.log(err);
+    console.log(error.message);
   }
 };
 

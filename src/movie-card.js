@@ -25,7 +25,7 @@ const makeMovieCard = function (movieList) {
       `;
 
     // div 태그-movieList에 템플릿 추가하기
-    $movieList.innerHTML += cardTemplate;
+    $movieList.insertAdjacentHTML("beforeend", cardTemplate);
   });
 };
 

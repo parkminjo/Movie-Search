@@ -7,41 +7,80 @@ import { makeMovieCard } from "./movie-card.js";
 
 // HTML 태그
 const $searchBox = document.querySelector(".movie-search-input");
-const $movieList = document.querySelector(".movie-list");
+
+// 전역 변수 - 특수 문자
+const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
 
 //
-// 사용자가 입력한 값을 가져오는 함수
-const bringUserInput = function (e) {
-  if (e.key === "Enter") {
-    const inputValue = $searchInput.value; // 사용자가 입력한 값 가져오기
+// 디바운싱 함수
+let timerId;
+const debouncing = function (func, timeOut = 300) {
+  clearTimeout(timerId);
+  timerId = setTimeout(func, timeOut);
+};
 
-    if (inputValue === "") {
-      alert("검색창에 키워드를 입력해주세요"); // 예외 상황 처리
-    }
-    $searchInput.value = ""; // 사용자가 입력한 값 초기화하기
+//
+// 실시간 검색 기능
+const realTimeSearch = function (e) {
+  const $banner = document.querySelector(".banner");
+  $banner.innerHTML = "";
 
-    filterInput(inputValue);
+  // 사용자가 입력한 값
+  const inputValue = $searchBox.value
+    .trim()
+    .toLowerCase()
+    .replace(specialSymbol, "")
+    .replace(/\s/g, "");
+
+  // 디바운싱
+  if (inputValue.length > 0) {
+    debouncing(filterInput(inputValue));
   }
 };
 
-$searchBox.addEventListener("keydown", bringUserInput); // 사용자가 엔터키를 입력했을 때 bringInput 함수 실행하기
+$searchBox.addEventListener("input", realTimeSearch);
+
+//
+// 엔터키 검색 기능
+const enterKeySearch = function (e) {
+  // 사용자가 입력한 값
+  const inputValue = $searchBox.value
+    .trim()
+    .toLowerCase()
+    .replace(specialSymbol, "")
+    .replace(/\s/g, "");
+
+  if (e.key === "Enter") {
+    if (inputValue === "") alert("검색창에 키워드를 입력해주세요"); // 예외 상황 처리
+
+    filterInput(inputValue);
+    $searchBox.value = ""; // 사용자가 입력한 값 초기화
+  }
+};
+
+$searchBox.addEventListener("keydown", enterKeySearch);
 
 //
 // 사용자가 입력한 값을 필터링하는 함수
 const filterInput = function (inputValue) {
   const searchedMovieList = popularMovieList.filter((movie) => {
-    return movie.title.toLowerCase().includes(inputValue.toLowerCase());
+    // 영화 제목에 있는 특수문자와 공백 제거하기
+    const movieTitle = movie.title
+      .trim()
+      .toLowerCase()
+      .replace(specialSymbol, "")
+      .replace(/\s/g, "");
+
+    return movieTitle.includes(inputValue);
   });
 
-  if (searchedMovieList.length === 0) {
-    alert("입력하신 키워드와 일치하는 영화가 없습니다"); // 예외 상황 처리
-  }
   makeSearchedMovieCard(searchedMovieList);
 };
 
 //
 // 검색된 영화 카드를 만들어 주는 함수
 const makeSearchedMovieCard = function (searchedMovieList) {
+  const $movieList = document.querySelector(".movie-list");
   $movieList.innerHTML = ""; // 기존에 있는 영화 카드 삭제하기
 
   makeMovieCard(searchedMovieList);

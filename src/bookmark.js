@@ -10,7 +10,9 @@ const $addDeleteBookmarkButton = document.querySelector(".movie-add-delete");
 //
 // 사용자가 북마크한 영화를 보여주는 함수
 const showBookMark = function () {
+  const $banner = document.querySelector(".banner");
   $movieList.innerHTML = "";
+  $banner.innerHTML = "";
 
   const strMovieArr = window.localStorage.getItem("movie");
   const markedMovie = JSON.parse(strMovieArr);
@@ -56,22 +58,15 @@ const addBookMark = async function (e) {
     return movie.id === Number(clickedMovie.id);
   });
 
-  const movieTitle = movieDetails.title;
-  const movieId = movieDetails.id;
-  const movieImage =
-    "https://image.tmdb.org/t/p/w500" + movieDetails.poster_path;
-  const movieOverview = movieDetails.overview;
-  const movieDate = movieDetails.release_date;
-  const movieRating = movieDetails.vote_average;
-
   const dataObj = {
-    title: movieTitle,
-    id: movieId,
-    image: movieImage,
-    overview: movieOverview,
-    date: movieDate,
-    rating: movieRating,
+    title: movieDetails.title,
+    id: movieDetails.id,
+    image: "https://image.tmdb.org/t/p/w500" + movieDetails.poster_path,
+    overview: movieDetails.overview,
+    date: movieDetails.release_date,
+    rating: movieDetails.vote_average,
   };
+
   movieArr.push(dataObj);
   const strMovieArr = JSON.stringify(movieArr);
 
@@ -83,6 +78,7 @@ const addBookMark = async function (e) {
 // 북마크 삭제 함수
 const deleteBookMark = async function (e) {
   const clickedMovie = e.target.closest(".modal-body");
+  ``;
 
   let strMovieArr = window.localStorage.getItem("movie");
   const markedMovie = JSON.parse(strMovieArr);
