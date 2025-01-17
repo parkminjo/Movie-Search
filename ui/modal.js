@@ -3,11 +3,6 @@ import { fetchMovieId } from "../api/movie-id-api.js";
 
 // HTML 태그
 const $modal = document.querySelector(".modal");
-const $movieList = document.querySelector(".movie-list");
-const $closeButton = document.querySelector(".close-button");
-const $movieDetails = document.querySelector(".movie-info-all");
-const $modalBody = document.querySelector(".modal-body");
-
 const $addDeleteBookmarkButton = document.querySelector(".movie-add-delete");
 
 //
@@ -29,7 +24,9 @@ const openModal = async function (e) {
   // 영화 상세 정보 가져오기
   const movieDetails = await fetchMovieId(Number(movieCard.id));
 
-  $modalBody.setAttribute("id", `${movieDetails.id}`); // 북마크.js에서 사용자가 클릭한 영화의 id를 찾기 위한 방편
+  document
+    .querySelector(".modal-body")
+    .setAttribute("id", `${movieDetails.id}`); // 북마크.js에서 사용자가 클릭한 영화의 id를 찾기 위한 방편
 
   // 모달창 내부 템플릿
   const movieDetailsTemplate = `
@@ -50,7 +47,7 @@ const openModal = async function (e) {
     </div>
     `;
 
-  $movieDetails.innerHTML = movieDetailsTemplate;
+  document.querySelector(".movie-info-all").innerHTML = movieDetailsTemplate;
 
   // 북마크 추가/삭제 버튼 템플릿
   const addButton = `
@@ -66,7 +63,7 @@ const openModal = async function (e) {
     : ($addDeleteBookmarkButton.innerHTML = addButton);
 };
 
-$movieList.addEventListener("click", openModal);
+document.querySelector(".movie-list").addEventListener("click", openModal);
 
 //
 // 모달창 끄기
@@ -75,7 +72,7 @@ const closeModal = function () {
   document.body.style.overflow = "unset"; // 외부 화면 움직이게 하기
 };
 
-$closeButton.addEventListener("click", closeModal);
+document.querySelector(".close-button").addEventListener("click", closeModal);
 
 //
 // Local Storage에 데이터가 있는지 확인하는 함수

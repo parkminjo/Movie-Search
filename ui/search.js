@@ -6,9 +6,6 @@ import { makeMovieCard } from "./movie-card.js";
 
 // HTML 태그
 const $searchBox = document.querySelector(".movie-search-input");
-const $banner = document.querySelector(".banner");
-const $movieList = document.querySelector(".movie-list");
-const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 // 전역 변수 - 특수 문자
 const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`ㅇㄴ!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
@@ -24,8 +21,8 @@ const debouncing = function (func, timeOut = 300) {
 //
 // 실시간 검색 기능
 const realTimeSearch = function (e) {
-  $banner.style.display = "none";
-  $movieListTitle.style.display = "none";
+  document.querySelector(".banner").style.display = "none";
+  document.querySelector(".movie-list-title-text").style.display = "none";
 
   // 사용자가 입력한 값
   const inputValue = $searchBox.value
@@ -64,7 +61,7 @@ const filterInput = async function (inputValue) {
 //
 // 검색된 영화 카드를 만들어 주는 함수
 const makeSearchedMovieCard = function (searchedMovieList) {
-  $movieList.innerHTML = ""; // 기존에 있는 영화 카드 삭제하기
+  document.querySelector(".movie-list").innerHTML = ""; // 기존에 있는 영화 카드 삭제하기
 
   makeMovieCard(searchedMovieList);
 };

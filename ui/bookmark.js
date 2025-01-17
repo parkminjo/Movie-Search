@@ -3,17 +3,13 @@ import { fetchMovieId } from "../api/movie-id-api.js";
 
 // HTML 태그
 const $movieList = document.querySelector(".movie-list");
-const $bookMarkButton = document.querySelector(".book-mark-button");
-const $addDeleteBookmarkButton = document.querySelector(".movie-add-delete");
-const $banner = document.querySelector(".banner");
-const $movieListTitle = document.querySelector(".movie-list-title-text");
 
 //
 // 사용자가 북마크한 영화를 보여주는 함수
 const showBookMark = function () {
   $movieList.innerHTML = "";
-  $banner.style.display = "none";
-  $movieListTitle.style.display = "none";
+  document.querySelector(".banner").style.display = "none";
+  document.querySelector(".movie-list-title-text").style.display = "none";
 
   // local storage에 있는 영화 id, 상세 정보 가져와서 새로운 배열에 저장하기
   let markedMovies = [];
@@ -26,15 +22,17 @@ const showBookMark = function () {
   }
 
   markedMovies.forEach((movie) => {
-    // 영화 카드 템플릿 + 삼항 연산자
+    const { id, title, image, rating } = movie;
+
+    // 영화 카드 템플릿
     const cardTemplate = `
-    <div class="movie-card" id=${movie.id}>
+    <div class="movie-card" id=${id}>
       <div class="movie-image">
-        <img src=${movie.image} alt="영화이미지" />
+        <img src=${image} alt="영화이미지" />
       </div>
       <div class="movie-card-body">
-        <h2 class="movie-title">${movie.title}</h2>
-        <p class="movie-rating">평점: ${movie.rating}</p>
+        <h2 class="movie-title">${title}</h2>
+        <p class="movie-rating">평점: ${rating}</p>
       </div>
     </div>
     `;
@@ -44,11 +42,13 @@ const showBookMark = function () {
   });
 };
 
-$bookMarkButton.addEventListener("click", showBookMark);
+document
+  .querySelector(".book-mark-button")
+  .addEventListener("click", showBookMark);
 
 //
 // 북마크 추가/삭제 버튼 변환
-$addDeleteBookmarkButton.addEventListener("click", (e) => {
+document.querySelector(".movie-add-delete").addEventListener("click", (e) => {
   const whatButton = e.target.classList.value;
 
   whatButton === "movie-delete-button" ? deleteBookMark(e) : addBookMark(e);
