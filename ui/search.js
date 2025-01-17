@@ -8,7 +8,7 @@ import { makeMovieCard } from "./movie-card.js";
 const $searchBox = document.querySelector(".movie-search-input");
 
 // 전역 변수 - 특수 문자
-const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`ㅇㄴ!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
 
 //
 // 디바운싱 함수
@@ -21,19 +21,19 @@ const debouncing = function (func, timeOut = 300) {
 //
 // 실시간 검색 기능
 const realTimeSearch = function (e) {
-  document.querySelector(".banner").style.display = "none";
-  document.querySelector(".movie-list-title-text").style.display = "none";
-
   // 사용자가 입력한 값
   const inputValue = $searchBox.value
-    .trim()
     .toLowerCase()
     .replace(specialSymbol, "")
     .replace(/\s/g, "");
 
   // 디바운싱
   if (inputValue.length > 0) {
+    document.querySelector(".banner").style.display = "none";
+    document.querySelector(".movie-list-title-text").style.display = "none";
     debouncing(() => filterInput(inputValue));
+  } else {
+    document.querySelector(".movie-list").innerHTML = "";
   }
 };
 
@@ -42,20 +42,27 @@ $searchBox.addEventListener("input", realTimeSearch);
 //
 // 사용자가 입력한 값을 필터링하는 함수
 const filterInput = async function (inputValue) {
-  const allMovieList = await fetchAllMovies(inputValue);
+  try {
+    const lastSearchTerm = inputValue;
 
-  const searchedMovieList = allMovieList.filter((movie) => {
-    // 영화 제목에 있는 특수문자와 공백 제거하기
-    const movieTitle = movie.title
-      .trim()
-      .toLowerCase()
-      .replace(specialSymbol, "")
-      .replace(/\s/g, "");
+    const allMovieList = await fetchAllMovies(inputValue);
+    console.log("Fetched movies:", allMovieList);
+    if (inputValue !== lastSearchTerm) return;
 
-    return includeByCho(inputValue, movieTitle);
-  });
+    const searchedMovieList = allMovieList.filter((movie) => {
+      // 영화 제목에 있는 특수문자와 공백 제거하기
+      const movieTitle = movie.title
+        .toLowerCase()
+        .replace(specialSymbol, "")
+        .replace(/\s/g, "");
 
-  makeSearchedMovieCard(searchedMovieList);
+      return movieTitle.includes(inputValue);
+    });
+
+    makeSearchedMovieCard(searchedMovieList);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //
@@ -65,55 +72,3 @@ const makeSearchedMovieCard = function (searchedMovieList) {
 
   makeMovieCard(searchedMovieList);
 };
-
-//
-// 초성 검색을 위한 함수
-const CHO_HANGUL = [
-  "ㄱ",
-  "ㄲ",
-  "ㄴ",
-  "ㄷ",
-  "ㄸ",
-  "ㄹ",
-  "ㅁ",
-  "ㅂ",
-  "ㅃ",
-  "ㅅ",
-  "ㅆ",
-  "ㅇ",
-  "ㅈ",
-  "ㅉ",
-  "ㅊ",
-  "ㅋ",
-  "ㅌ",
-  "ㅍ",
-  "ㅎ",
-];
-
-const HANGUL_START_CHARCODE = "가".charCodeAt();
-
-const CHO_PERIOD = Math.floor("까".charCodeAt() - "가".charCodeAt());
-const JUNG_PERIOD = Math.floor("개".charCodeAt() - "가".charCodeAt());
-
-function combine(cho, jung, jong) {
-  return String.fromCharCode(
-    HANGUL_START_CHARCODE + cho * CHO_PERIOD + jung * JUNG_PERIOD + jong
-  );
-}
-
-function makeRegexByCho(search = "") {
-  const regex = CHO_HANGUL.reduce(
-    (acc, cho, index) =>
-      acc.replace(
-        new RegExp(cho, "g"),
-        `[${combine(index, 0, 0)}-${combine(index + 1, 0, -1)}]`
-      ),
-    search
-  );
-
-  return new RegExp(`(${regex})`, "g");
-}
-
-function includeByCho(search, targetWord) {
-  return makeRegexByCho(search).test(targetWord);
-}
