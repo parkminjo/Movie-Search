@@ -1,14 +1,14 @@
-# Personal Project: 영화 검색 사이트
+# 🎬 Personal Project: 영화 검색 사이트
 
-### 개발 기간
+### 🕰️ 개발 기간
 
 25.01.08 ~ 25.01.16
 
-### 개발 환경
+### 💻 개발 환경
 
 VS-code
 
-### 기술 스택
+### ⚙️ 기술 스택
 
 HTML, CSS, Javascript
 
