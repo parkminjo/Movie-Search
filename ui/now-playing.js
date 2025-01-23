@@ -1,11 +1,9 @@
-// 현재 상영작 데이터 배열
 import { nowPlayingMovieList } from "../api/now-playing-api.js";
 
-// 영화 카드 템플릿 생성 함수
+/** 영화 카드 템플릿 생성 함수 */
 import { makeMovieCard } from "./movie-card.js";
 
-//
-// 현재 상영작을 보여주는 함수
+/** 현재 상영작을 보여주는 함수 */
 const showNowPlaying = function () {
   document.querySelector(".movie-list").innerHTML = "";
   document.querySelector(".banner").style.display = "none";

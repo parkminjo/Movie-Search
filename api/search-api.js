@@ -1,4 +1,3 @@
-// 영화 검색을 위한 API
 const API_KEY = "90b4120de95509a3a2a1682d3c7abe13";
 const options = {
   method: "GET",
@@ -20,7 +19,7 @@ const fetchAllMovies = async function (query) {
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 

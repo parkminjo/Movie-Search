@@ -1,33 +1,34 @@
-// 영화 검색을 위한 API
 import { fetchAllMovies } from "../api/search-api.js";
-
-// 영화 카드 템플릿 생성 함수
 import { makeMovieCard } from "./movie-card.js";
 
-// HTML 태그
+/**
+ * @constant $searchBox 검색창 HTML 태그
+ */
 const $searchBox = document.querySelector(".movie-search-input");
 
-// 전역 변수 - 특수 문자
+/**
+ * @constant specialSymbol 특수 문자
+ */
 const specialSymbol = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
 
-//
-// 디바운싱 함수
+/** 디바운싱 함수 */
 let timerId;
 const debouncing = function (func, timeOut = 300) {
   clearTimeout(timerId);
   timerId = setTimeout(func, timeOut);
 };
 
-//
-// 실시간 검색 기능
+/** 실시간 검색 기능 */
 const realTimeSearch = function (e) {
-  // 사용자가 입력한 값
+  /**
+   * @constant inputValue 사용자 입력 값
+   */
   const inputValue = $searchBox.value
     .toLowerCase()
     .replace(specialSymbol, "")
     .replace(/\s/g, "");
 
-  // 디바운싱
+  /** 디바운싱 */
   if (inputValue.length > 0) {
     document.querySelector(".banner").style.display = "none";
     document.querySelector(".movie-list-title-text").style.display = "none";
@@ -39,8 +40,7 @@ const realTimeSearch = function (e) {
 
 $searchBox.addEventListener("input", realTimeSearch);
 
-//
-// 사용자가 입력한 값을 필터링하는 함수
+/** 사용자가 입력한 값을 필터링하는 함수 */
 const filterInput = async function (inputValue) {
   try {
     const lastSearchTerm = inputValue;
@@ -65,10 +65,9 @@ const filterInput = async function (inputValue) {
   }
 };
 
-//
-// 검색된 영화 카드를 만들어 주는 함수
+/** 검색된 영화 카드를 만들어 주는 함수 */
 const makeSearchedMovieCard = function (searchedMovieList) {
-  document.querySelector(".movie-list").innerHTML = ""; // 기존에 있는 영화 카드 삭제하기
+  document.querySelector(".movie-list").innerHTML = "";
 
   makeMovieCard(searchedMovieList);
 };

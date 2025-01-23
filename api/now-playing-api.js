@@ -1,4 +1,3 @@
-// TMDB에서 현재 상영작 API 가져오기
 const url = "https://api.themoviedb.org/3/movie/now_playing?language=ko-KR";
 const options = {
   method: "GET",
@@ -9,7 +8,9 @@ const options = {
   },
 };
 
-// 현재 상영작 데이터가 담긴 배열 만들기
+/**
+ * @returns 현재 상영작 영화 배열
+ */
 const fetchNowPlayingMovies = async function () {
   try {
     const response = await fetch(url, options);
@@ -19,7 +20,7 @@ const fetchNowPlayingMovies = async function () {
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 

@@ -1,34 +1,39 @@
-// 영화 검색을 위한 API
 import { fetchMovieId } from "../api/movie-id-api.js";
 
-// HTML 태그
+/**
+ * @constant $modal
+ * @constant $addDeleteBookmarkButton
+ */
 const $modal = document.querySelector(".modal");
 const $addDeleteBookmarkButton = document.querySelector(".movie-add-delete");
 
-//
-// 모달창 켜기
-
+/**
+ *
+ * @param {*} event
+ * @returns null
+ */
 const openModal = async function (e) {
-  $modal.style.display = "block"; // 모달창 보여주기
-  document.body.style.overflow = "hidden"; // 모달창 외부 화면 고정시키기
+  $modal.style.display = "block";
+  document.body.style.overflow = "hidden";
 
   const movieCard = e.target.closest(".movie-card");
 
-  // 예외 상황 처리
+  /** 예외 상황 처리 */
   if (!movieCard) {
     $modal.style.display = "none";
     document.body.style.overflow = "unset";
     return;
   }
 
-  // 영화 상세 정보 가져오기
+  /** @constant movieDetails 영화 상세 정보 */
   const movieDetails = await fetchMovieId(Number(movieCard.id));
 
+  /** 북마크.js에서 사용자가 클릭한 영화의 id를 찾기 위한 방편 */
   document
     .querySelector(".modal-body")
-    .setAttribute("id", `${movieDetails.id}`); // 북마크.js에서 사용자가 클릭한 영화의 id를 찾기 위한 방편
+    .setAttribute("id", `${movieDetails.id}`);
 
-  // 모달창 내부 템플릿
+  /** @constant movieDetailsTemplate 영화 상세 정보 템플릿 */
   const movieDetailsTemplate = `
     <div class="detail-movie-image">
         <img
@@ -49,7 +54,10 @@ const openModal = async function (e) {
 
   document.querySelector(".movie-info-all").innerHTML = movieDetailsTemplate;
 
-  // 북마크 추가/삭제 버튼 템플릿
+  /**
+   * @constant addButton 영화 추가 버튼
+   * @constant deleteButton 영화 삭제 버튼
+   */
   const addButton = `
       <input class="movie-add-button" type="button" value="북마크 추가" />
   `;
@@ -57,7 +65,7 @@ const openModal = async function (e) {
     <input class="movie-delete-button" type="button" value="북마크 삭제" />
   `;
 
-  // Local Storage 데이터 여부에 따라 달라지는 북마크 추가/삭제 버튼
+  /** Local Storage 데이터 여부에 따라 달라지는 북마크 추가/삭제 버튼 */
   checkLocalStorage(movieDetails.id)
     ? ($addDeleteBookmarkButton.innerHTML = deleteButton)
     : ($addDeleteBookmarkButton.innerHTML = addButton);
@@ -65,17 +73,18 @@ const openModal = async function (e) {
 
 document.querySelector(".movie-list").addEventListener("click", openModal);
 
-//
-// 모달창 끄기
+/** 모달창 끄는 함수 */
 const closeModal = function () {
-  $modal.style.display = "none"; /// 모달창 감추기
-  document.body.style.overflow = "unset"; // 외부 화면 움직이게 하기
+  $modal.style.display = "none";
+  document.body.style.overflow = "unset";
 };
 
 document.querySelector(".close-button").addEventListener("click", closeModal);
 
-//
-// Local Storage에 데이터가 있는지 확인하는 함수
+/**
+ * @param {*} movieId
+ * @returns Local Storage 데이터 여부
+ */
 const checkLocalStorage = function (movieId) {
   if (window.localStorage.length >= 1) {
     for (let i = 0; i < window.localStorage.length; i++) {
@@ -84,6 +93,6 @@ const checkLocalStorage = function (movieId) {
       }
     }
   } else {
-    false;
+    return false;
   }
 };

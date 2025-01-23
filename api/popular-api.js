@@ -1,5 +1,3 @@
-//
-// TMDB에서 인기 영화 API 가져오기
 const url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR";
 const options = {
   method: "GET",
@@ -10,7 +8,9 @@ const options = {
   },
 };
 
-// 인기 영화 데이터가 담긴 배열 만들기
+/**
+ * @returns 인기 영화 데이터 배열
+ */
 const fetchPopularMovies = async function () {
   try {
     const response = await fetch(url, options);
@@ -20,7 +20,7 @@ const fetchPopularMovies = async function () {
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 

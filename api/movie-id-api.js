@@ -1,4 +1,3 @@
-// 영화 id를 찾기 위한 API
 const options = {
   method: "GET",
   headers: {
@@ -10,21 +9,21 @@ const options = {
 
 const fetchMovieId = async function (movieId) {
   if (!movieId) {
-    console.error("movieId가 유효하지 않습니다.");
+    alert("movieId가 유효하지 않습니다.");
     return null;
   }
 
   try {
     const url = `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`;
 
-    const response = await fetch(url, options);
+    const response = await fetch(url, { ...options });
     if (!response.ok) {
       throw new Error(`${response.status} 에러가 발생했습니다`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error.message);
+    alert(error.message);
   }
 };
 
